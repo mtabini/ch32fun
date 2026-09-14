@@ -1,0 +1,14 @@
+.program wch_rvswd_bit
+.side_set 1 opt
+
+; TX bit 0: DIO output enable. TX bit 1: DIO output value.
+; One sampled DIO bit is returned in each RX word.
+; Clock stays high while waiting for the next command.
+.wrap_target
+    pull block
+    out pindirs, 1   side 0 [3]
+    out pins, 1      side 0 [7]
+    nop              side 0 [7]
+    in pins, 1       side 0
+    push block       side 1 [7]
+.wrap
